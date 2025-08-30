@@ -1,0 +1,110 @@
+
+
+
+.wp-3d-slider-wrapper {
+    overflow-x: hidden; /* prevent horizontal scroll */
+	 overflow-y: hidden; /* prevent horizontal scroll */
+    cursor: grab;       /* grab cursor */
+    background: #f5f5f5; /* optional background */
+}
+
+/* Any nested slider styles */
+/*.wp-3d-slider-wrapper .slider-container {
+    width: 100%;
+    height: 100vh;
+}
+*/
+.screen {
+/*position: fixed;*/
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 50vh;
+	pointer-events: none;
+}
+
+.fold-scroller {
+	height: 100%;
+}
+
+.fold-content {
+	pointer-events: all;
+	width: 100%;
+}
+
+.fold-size-fix {
+	width: 100%;
+	height: 100%;
+}
+
+.fold-before .fold-size-fix {
+	transform-origin: bottom center;
+}
+
+.fold-after .fold-size-fix {
+	transform-origin: top center;
+}
+
+#base-content {
+	display: none;
+}
+
+/*  Debug */
+.debug .fold:nth-child(2n) {
+	background: #dadada;
+}
+
+.debug .fold:nth-child(2n + 1) {
+	background: #bababa;
+}
+
+.btn-debug {
+	position: fixed;
+	top: 10px;
+	padding: 1rem;
+	font-size: 16px;
+	text-transform: uppercase;
+	right: 10px;
+	cursor: pointer;
+	z-index: 100;
+	display: none;
+}
+
+.square {
+	width: 100%;
+	padding-bottom: 100%;
+	background: coral;
+}
+
+.rectangle {
+	width: 100%;
+	padding-bottom: 50%;
+	background: coral;
+	box-shadow: 1px 0 coral, 0 1px coral;
+}
+
+
+/* Page Loader */
+
+
+@keyframes loaderAnim {
+	to {
+		opacity: 1;
+		transform: scale3d(0.5, 0.5, 1);
+	}
+}
+
+
+
+@media screen and (min-width: 53em) {
+
+
+	.wp-3d-slider-wrapper .content {
+		height: 50vh;
+		justify-content: center;
+		
+	}
+}
