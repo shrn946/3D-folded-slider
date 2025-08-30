@@ -232,6 +232,9 @@ add_action('wp_head', 'wp3dslider_custom_css');
 
 /* ------------------- SHORTCODE ------------------- */
 function wp3dslider_display_slider() {
+	  if (is_admin()) {
+        return ''; // or return '<p>Preview disabled in admin.</p>';
+    }
     $images = get_option('wp3dslider_images', []);
     if (empty($images)) return '<p>No slider images found. Please add images in the 3D Slider settings.</p>';
     ob_start(); ?>
