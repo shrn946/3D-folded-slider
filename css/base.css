@@ -28,6 +28,8 @@
 
 .fold-scroller {
 	height: 100%;
+	width: 100%;
+
 }
 
 .fold-content {

@@ -16,9 +16,9 @@
 	top: 2rem;
 }
 .content__img {
-    
     height: 100% !important;
-
+  max-height: 600px!important;
+    max-width: 700px !important;
 }
 
 .fold {
