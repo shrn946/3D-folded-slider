@@ -15,13 +15,18 @@
 .screen {
 	top: 2rem;
 }
+.content__img {
+    
+    height: 100% !important;
+
+}
 
 .fold {
 	overflow: hidden;
 	width: calc(40vw + 1px);
 	height: 50vh;
 	will-change: transform;
-	background: #ccc;
+	background: #cec39e;
 }
 
 .wrapper-3d {

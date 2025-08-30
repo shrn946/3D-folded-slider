@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: WP 3D Folded Slider
-Description: A simple 3D slider plugin with backend image thumbnails and shortcode [wp_3d_slider] support.
-Version: 1.6
+Description: A simple 3D folded slider plugin with backend image thumbnails, shortcode [wp_3d_slider], and Elementor widget support.
+Version: 1.7
 Author: WP DESIGN LAB
 */
 
@@ -57,28 +57,24 @@ add_action('admin_menu', 'wp3dslider_admin_menu');
 function wp3dslider_register_settings() {
     register_setting('wp3dslider_options_group', 'wp3dslider_images');
 
-    // Slider height option
     register_setting('wp3dslider_options_group', 'wp3dslider_height', [
         'type'              => 'string',
         'sanitize_callback' => 'sanitize_text_field',
         'default'           => '50vh',
     ]);
 
-    // Fold background color option
     register_setting('wp3dslider_options_group', 'wp3dslider_fold_bg', [
         'type'              => 'string',
         'sanitize_callback' => 'sanitize_hex_color',
         'default'           => '#ccc',
     ]);
 
-    // Wrapper background color option
     register_setting('wp3dslider_options_group', 'wp3dslider_wrapper_bg', [
         'type'              => 'string',
         'sanitize_callback' => 'sanitize_hex_color',
         'default'           => '#f5f5f5',
     ]);
 
-    // Title font size option
     register_setting('wp3dslider_options_group', 'wp3dslider_title_size', [
         'type'              => 'string',
         'sanitize_callback' => 'sanitize_text_field',
@@ -101,7 +97,6 @@ function wp3dslider_settings_page() {
         <form method="post" action="options.php">
             <?php settings_fields('wp3dslider_options_group'); ?>
 
-            <!-- IMAGE TABLE -->
             <table class="form-table" id="wp3dslider-table">
                 <thead>
                     <tr>
@@ -129,52 +124,30 @@ function wp3dslider_settings_page() {
 
             <button id="add_row" class="button">Add New</button>
 
-            <!-- SLIDER OPTIONS -->
             <h2>Slider Options</h2>
             <table class="form-table">
-                <tr valign="top">
+                <tr>
                     <th scope="row">Slider Height</th>
                     <td>
-                        <input type="text"
-                               name="wp3dslider_height"
-                               value="<?php echo esc_attr($height); ?>"
-                               placeholder="e.g. 400px or 60vh" />
-                        <p class="description">Set slider height (e.g. 400px, 60vh, 100%).</p>
+                        <input type="text" name="wp3dslider_height" value="<?php echo esc_attr($height); ?>" placeholder="e.g. 400px or 60vh" />
                     </td>
                 </tr>
-
-                <tr valign="top">
+                <tr>
                     <th scope="row">Fold Background Color</th>
                     <td>
-                        <input type="text"
-                               name="wp3dslider_fold_bg"
-                               value="<?php echo esc_attr($fold_bg); ?>"
-                               class="wp-color-picker-field"
-                               data-default-color="#ccc" />
-                        <p class="description">Choose background color for fold sections.</p>
+                        <input type="text" name="wp3dslider_fold_bg" value="<?php echo esc_attr($fold_bg); ?>" class="wp-color-picker-field" data-default-color="#ccc" />
                     </td>
                 </tr>
-
-                <tr valign="top">
+                <tr>
                     <th scope="row">Wrapper Background Color</th>
                     <td>
-                        <input type="text"
-                               name="wp3dslider_wrapper_bg"
-                               value="<?php echo esc_attr($wrapper_bg); ?>"
-                               class="wp-color-picker-field"
-                               data-default-color="#f5f5f5" />
-                        <p class="description">Choose background color for the outer wrapper.</p>
+                        <input type="text" name="wp3dslider_wrapper_bg" value="<?php echo esc_attr($wrapper_bg); ?>" class="wp-color-picker-field" data-default-color="#f5f5f5" />
                     </td>
                 </tr>
-
-                <tr valign="top">
+                <tr>
                     <th scope="row">Title Font Size</th>
                     <td>
-                        <input type="text"
-                               name="wp3dslider_title_size"
-                               value="<?php echo esc_attr($title_size); ?>"
-                               placeholder="e.g. 20px or 2em" />
-                        <p class="description">Set font size for slide titles.</p>
+                        <input type="text" name="wp3dslider_title_size" value="<?php echo esc_attr($title_size); ?>" placeholder="e.g. 20px or 2em" />
                     </td>
                 </tr>
             </table>
@@ -185,10 +158,8 @@ function wp3dslider_settings_page() {
 
     <script>
     jQuery(document).ready(function($){
-        // Make table sortable
         $("#sortable").sortable({ items: "tr", cursor: "move", axis: "y" });
 
-        // Media uploader (per row)
         $('body').on('click', '.upload_image_button', function(e) {
             e.preventDefault();
             var button = $(this);
@@ -205,7 +176,6 @@ function wp3dslider_settings_page() {
             customUploader.open();
         });
 
-        // Add new row
         $('#add_row').on('click', function(e){
             e.preventDefault();
             var count = $('#sortable tr').length;
@@ -220,13 +190,11 @@ function wp3dslider_settings_page() {
             );
         });
 
-        // Remove row
         $('body').on('click', '.remove_row', function(e){
             e.preventDefault();
             $(this).closest('tr').remove();
         });
 
-        // Init WP color picker
         $('.wp-color-picker-field').wpColorPicker();
     });
     </script>
@@ -264,9 +232,6 @@ add_action('wp_head', 'wp3dslider_custom_css');
 
 /* ------------------- SHORTCODE ------------------- */
 function wp3dslider_display_slider() {
-	  if (is_admin()) {
-        return ''; // or return '<p>Preview disabled in admin.</p>';
-    }
     $images = get_option('wp3dslider_images', []);
     if (empty($images)) return '<p>No slider images found. Please add images in the 3D Slider settings.</p>';
     ob_start(); ?>
@@ -294,3 +259,11 @@ function wp3dslider_display_slider() {
     return ob_get_clean();
 }
 add_shortcode('wp_3d_slider', 'wp3dslider_display_slider');
+
+
+/* ------------------- ELEMENTOR WIDGET ------------------- */
+function wp3dslider_register_elementor_widget( $widgets_manager ) {
+    require_once( __DIR__ . '/elementor-wp3dslider-widget.php' );
+    $widgets_manager->register( new \WP3DSlider_Elementor_Widget() );
+}
+add_action( 'elementor/widgets/register', 'wp3dslider_register_elementor_widget' );
