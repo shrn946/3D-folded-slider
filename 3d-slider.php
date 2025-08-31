@@ -264,9 +264,4 @@ function wp3dslider_display_slider() {
 add_shortcode('wp_3d_slider', 'wp3dslider_display_slider');
 
 
-/* ------------------- ELEMENTOR WIDGET ------------------- */
-function wp3dslider_register_elementor_widget( $widgets_manager ) {
-    require_once( __DIR__ . '/elementor-wp3dslider-widget.php' );
-    $widgets_manager->register( new \WP3DSlider_Elementor_Widget() );
-}
-add_action( 'elementor/widgets/register', 'wp3dslider_register_elementor_widget' );
+
