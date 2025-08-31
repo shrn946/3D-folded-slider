@@ -264,4 +264,4 @@ function wp3dslider_display_slider() {
 add_shortcode('wp_3d_slider', 'wp3dslider_display_slider');
 
 
-
+/* ------------------- ELEMENTOR WIDGET ------------------- */
